@@ -1,0 +1,31 @@
+services:
+  obot:
+    image: ghcr.io/obot-platform/obot:latest
+    container_name: obot
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      - OBOT_SERVER_SERVER_URL=${OBOT_SERVER_SERVER_URL:-https://obot.ty-dev.site}
+      - OBOT_SERVER_ENABLE_AUTHENTICATION=${OBOT_SERVER_ENABLE_AUTHENTICATION:-true}
+      - OBOT_BOOTSTRAP_TOKEN=${OBOT_BOOTSTRAP_TOKEN}
+      - OBOT_SERVER_PORT=8080
+    volumes:
+      - obot_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/api/healthz')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - coolify
+
+volumes:
+  obot_data:
+    name: obot_data
+
+networks:
+  coolify:
+    external: true
