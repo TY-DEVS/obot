@@ -39,7 +39,6 @@ node_modules/
 *.old
 
 # Ignore IDE specific files
-.vscode/
 .idea/
 *.iml
 
@@ -81,3 +80,4 @@ __pycache__/
 # Model data downloaded at build time (see pkg/modeldata/data/README.md)
 /pkg/modeldata/data/*.json.gz
 /pkg/modeldata/data/generated
+config.bat
