@@ -38,8 +38,8 @@ services:
     image: ghcr.io/obot-platform/obot:latest
     container_name: obot
     restart: unless-stopped
-    ports:
-      - "${PORT:-8080}:8080"
+    expose:
+      - "8080"
     environment:
       - OBOT_SERVER_SERVER_URL=${OBOT_SERVER_SERVER_URL:-https://obot.ty-dev.site}
       - OBOT_SERVER_ENABLE_AUTHENTICATION=${OBOT_SERVER_ENABLE_AUTHENTICATION:-true}
